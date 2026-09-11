@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>UUID Generator & Online Hash Calculator (SHA-256, MD5, SHA-512) | Free Tool</title>
+  <meta name="title" content="UUID Generator & Online Hash Calculator (SHA-256, MD5, SHA-512) | Free Tool">
+  <meta name="description" content="Generate UUID v4 & UUID v7, validate GUIDs, and calculate cryptographic hashes (SHA-256, MD5, SHA-512, SHA-1) and HMAC in real-time. 100% private and client-side.">
+  <meta name="keywords" content="uuid generator, uuid v4, uuid v7, guid generator, sha256 generator, md5 generator, hash generator online, sha512, hmac generator, file checksum, developer tools">
+  <meta name="author" content="bordia98">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://bordia98.github.io/uuid-hash-generator/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bordia98.github.io/uuid-hash-generator/">
+  <meta property="og:title" content="UUID Generator & Hash Calculator (SHA-256, MD5, SHA-512)">
+  <meta property="og:description" content="Generate secure random UUID v4 and time-ordered UUID v7. Compute SHA-256, MD5, SHA-512, HMAC, and local file checksums with zero server uploads.">
+  <meta property="og:site_name" content="Web Developer Tools by bordia98">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://bordia98.github.io/uuid-hash-generator/">
+  <meta property="twitter:title" content="UUID Generator & Hash Calculator (SHA-256, MD5, SHA-512)">
+  <meta property="twitter:description" content="Generate secure random UUID v4 and time-ordered UUID v7. Compute SHA-256, MD5, SHA-512, HMAC, and local file checksums with zero server uploads.">
+
+  <!-- Favicon SVG Data URI -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🆔</text></svg>">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "UUID Generator and Hash Calculator",
+    "url": "https://bordia98.github.io/uuid-hash-generator/",
+    "description": "Generate RFC-compliant UUIDs (v4, v7) and compute SHA-256, MD5, SHA-512, HMAC hashes and client-side file checksums.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "creator": {
+      "@type": "Person",
+      "name": "bordia98",
+      "url": "https://github.com/bordia98"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between UUID v4 and UUID v7?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "UUID v4 is entirely generated from cryptographically secure pseudorandom numbers. UUID v7 encodes a 48-bit Unix timestamp at the beginning, making it time-ordered and significantly more optimal for database primary key indexes (preventing B-tree fragmentation)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is MD5 still safe to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MD5 is cryptographically broken and vulnerable to collision attacks, meaning it should never be used for password storage or digital signatures. However, it remains widely used for quick data integrity checksums and caching keys."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my files or passwords uploaded to a server for hashing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All hash calculations and UUID generations use the native browser Web Crypto API (crypto.subtle and crypto.randomUUID). Your files and text never leave your computer."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <span class="brand-icon">🆔</span>
+        <div>
+          <span class="brand-title">UUID & Hash Generator</span>
+          <span class="brand-badge">100% Client-Side</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="btn-icon" aria-label="Toggle light/dark theme" title="Toggle theme">
+          <span class="theme-icon light-icon">☀️</span>
+          <span class="theme-icon dark-icon">🌙</span>
+        </button>
+        <a href="https://github.com/bordia98/uuid-hash-generator" target="_blank" rel="noopener noreferrer" class="btn-github" title="View Source on GitHub">
+          <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero-section">
+      <h1>UUID Generator & Cryptographic Hash Calculator</h1>
+      <p class="hero-subtitle">Generate RFC 4122 v4 and RFC 9562 v7 UUIDs, calculate SHA-256, MD5, SHA-512 hashes, compute HMAC, and verify local file checksums.</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-container" role="tablist">
+      <button class="tab-btn active" data-tab="uuid-gen" role="tab" aria-selected="true" aria-controls="tab-uuid-gen">
+        <span class="tab-icon">🎲</span> UUID / GUID Generator
+      </button>
+      <button class="tab-btn" data-tab="uuid-inspect" role="tab" aria-selected="false" aria-controls="tab-uuid-inspect">
+        <span class="tab-icon">🔍</span> UUID Validator & Inspector
+      </button>
+      <button class="tab-btn" data-tab="text-hash" role="tab" aria-selected="false" aria-controls="tab-text-hash">
+        <span class="tab-icon">🔒</span> Text Hash (SHA/MD5)
+      </button>
+      <button class="tab-btn" data-tab="file-hash" role="tab" aria-selected="false" aria-controls="tab-file-hash">
+        <span class="tab-icon">📁</span> File Checksum
+      </button>
+      <button class="tab-btn" data-tab="hmac" role="tab" aria-selected="false" aria-controls="tab-hmac">
+        <span class="tab-icon">🔑</span> HMAC Calculator
+      </button>
+    </div>
+
+    <!-- Tab 1: UUID Generator -->
+    <div id="tab-uuid-gen" class="tab-panel active" role="tabpanel">
+      <!-- Options Bar -->
+      <div class="card toolbar-card">
+        <div class="toolbar-flex">
+          <div class="options-subgroup">
+            <label class="control-label">Version:</label>
+            <div class="segmented-control">
+              <label><input type="radio" name="uuidVersion" value="v4" checked><span>v4 (Random)</span></label>
+              <label><input type="radio" name="uuidVersion" value="v7"><span>v7 (Time-Ordered)</span></label>
+            </div>
+          </div>
+
+          <div class="options-subgroup">
+            <label class="control-label" for="uuidCount">Quantity:</label>
+            <select id="uuidCount" class="select-control">
+              <option value="1" selected>1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+
+          <div class="options-subgroup">
+            <label class="checkbox-label" title="Remove dashes from the UUID">
+              <input type="checkbox" id="optNoHyphens">
+              <span>No Hyphens</span>
+            </label>
+            <label class="checkbox-label" title="Convert to uppercase characters">
+              <input type="checkbox" id="optUppercase">
+              <span>Uppercase</span>
+            </label>
+            <label class="checkbox-label" title="Wrap in curly braces { ... }">
+              <input type="checkbox" id="optBraces">
+              <span>Braces <code>{...}</code></span>
+            </label>
+          </div>
+
+          <button id="generateUuidBtn" class="btn btn-primary">
+            <span>⚡ Generate UUID</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Generated Output</span>
+          <div class="btn-cluster">
+            <button id="copyAllUuidBtn" class="btn-copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy All</span>
+            </button>
+            <button id="downloadUuidBtn" class="btn btn-outline btn-sm">Download .txt</button>
+          </div>
+        </div>
+
+        <div id="uuidSingleContainer" class="single-uuid-view">
+          <div class="display-uuid-big" id="primaryUuidDisplay">-</div>
+          <button id="copySingleUuidBtn" class="btn btn-primary btn-sm">Copy</button>
+        </div>
+
+        <div id="uuidMultiContainer" class="multi-uuid-view" style="display: none;">
+          <textarea id="uuidResultsTextarea" class="code-textarea" rows="10" readonly></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: UUID Inspector / Validator -->
+    <div id="tab-uuid-inspect" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h2 class="section-heading">UUID Validator & Structural Inspector</h2>
+        <p class="section-sub">Paste any UUID string to decode its version, variant, and embedded timestamp.</p>
+
+        <div class="inspect-input-row">
+          <input type="text" id="inspectInput" class="text-input" placeholder="e.g. 01918a24-9b2f-7d12-856c-0e7d7a1fb214 or 8b73a24a-2f3b-48c9-bc42-1e9a4f6d8920">
+          <button id="inspectSampleBtn" class="btn btn-outline btn-sm">Sample</button>
+        </div>
+
+        <div id="inspectResultBox" class="inspect-results-grid" style="display: none;">
+          <div class="inspect-card">
+            <span class="ins-label">Valid Format</span>
+            <span id="insValid" class="ins-val">-</span>
+          </div>
+          <div class="inspect-card">
+            <span class="ins-label">Version</span>
+            <span id="insVersion" class="ins-val">-</span>
+          </div>
+          <div class="inspect-card">
+            <span class="ins-label">Variant</span>
+            <span id="insVariant" class="ins-val">-</span>
+          </div>
+          <div class="inspect-card">
+            <span class="ins-label">Embedded Time (v7/v1)</span>
+            <span id="insTimestamp" class="ins-val">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Text Hash Generator -->
+    <div id="tab-text-hash" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="section-heading">Input Text</h2>
+          <div class="btn-cluster">
+            <label class="checkbox-label">
+              <input type="checkbox" id="hashUppercase">
+              <span>Uppercase Hashes</span>
+            </label>
+            <button id="clearHashTextBtn" class="btn btn-ghost btn-sm">Clear</button>
+            <button id="sampleHashTextBtn" class="btn btn-ghost btn-sm">Sample</button>
+          </div>
+        </div>
+
+        <textarea id="hashTextInput" class="code-textarea" rows="4" placeholder="Type or paste any text to hash in real-time..."></textarea>
+
+        <div class="hashes-list">
+          <!-- SHA-256 -->
+          <div class="hash-row">
+            <div class="hash-meta">
+              <span class="hash-name">SHA-256</span>
+              <span class="hash-bits">256-bit / 64 hex chars (Recommended)</span>
+            </div>
+            <div class="hash-output-box">
+              <input type="text" id="outSha256" class="hash-text-val" readonly placeholder="Waiting for input...">
+              <button class="btn-copy copy-hash-btn" data-target="outSha256">Copy</button>
+            </div>
+          </div>
+
+          <!-- MD5 -->
+          <div class="hash-row">
+            <div class="hash-meta">
+              <span class="hash-name">MD5</span>
+              <span class="hash-bits">128-bit / 32 hex chars (Checksums & Caches)</span>
+            </div>
+            <div class="hash-output-box">
+              <input type="text" id="outMd5" class="hash-text-val" readonly placeholder="Waiting for input...">
+              <button class="btn-copy copy-hash-btn" data-target="outMd5">Copy</button>
+            </div>
+          </div>
+
+          <!-- SHA-512 -->
+          <div class="hash-row">
+            <div class="hash-meta">
+              <span class="hash-name">SHA-512</span>
+              <span class="hash-bits">512-bit / 128 hex chars</span>
+            </div>
+            <div class="hash-output-box">
+              <input type="text" id="outSha512" class="hash-text-val" readonly placeholder="Waiting for input...">
+              <button class="btn-copy copy-hash-btn" data-target="outSha512">Copy</button>
+            </div>
+          </div>
+
+          <!-- SHA-384 -->
+          <div class="hash-row">
+            <div class="hash-meta">
+              <span class="hash-name">SHA-384</span>
+              <span class="hash-bits">384-bit / 96 hex chars</span>
+            </div>
+            <div class="hash-output-box">
+              <input type="text" id="outSha384" class="hash-text-val" readonly placeholder="Waiting for input...">
+              <button class="btn-copy copy-hash-btn" data-target="outSha384">Copy</button>
+            </div>
+          </div>
+
+          <!-- SHA-1 -->
+          <div class="hash-row">
+            <div class="hash-meta">
+              <span class="hash-name">SHA-1</span>
+              <span class="hash-bits">160-bit / 40 hex chars (Legacy / Git SHAs)</span>
+            </div>
+            <div class="hash-output-box">
+              <input type="text" id="outSha1" class="hash-text-val" readonly placeholder="Waiting for input...">
+              <button class="btn-copy copy-hash-btn" data-target="outSha1">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: File Checksum -->
+    <div id="tab-file-hash" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h2 class="section-heading">Client-Side File Checksum & Integrity Calculator</h2>
+        <p class="section-sub">Calculate file hashes locally in your browser. <strong>Files are never uploaded to any server.</strong></p>
+
+        <div id="dropZone" class="file-drop-zone">
+          <span class="drop-icon">📁</span>
+          <p class="drop-prompt">Drag & drop any file here, or <span class="browse-link">browse your files</span></p>
+          <span class="drop-sub">Processed completely in browser memory via Web Crypto API</span>
+          <input type="file" id="fileInput" class="file-hidden-input">
+        </div>
+
+        <div id="fileInfoBox" class="file-info-bar" style="display: none;">
+          <div class="file-details">
+            <span id="fileName" class="file-name">filename.ext</span>
+            <span id="fileSize" class="file-size">0 KB</span>
+          </div>
+          <span id="hashProgressBadge" class="progress-badge">Calculated</span>
+        </div>
+
+        <div class="hashes-list" id="fileHashesContainer" style="display: none;">
+          <div class="hash-row">
+            <div class="hash-meta"><span class="hash-name">SHA-256 Checksum</span></div>
+            <div class="hash-output-box">
+              <input type="text" id="fileSha256" class="hash-text-val" readonly>
+              <button class="btn-copy copy-hash-btn" data-target="fileSha256">Copy</button>
+            </div>
+          </div>
+          <div class="hash-row">
+            <div class="hash-meta"><span class="hash-name">MD5 Checksum</span></div>
+            <div class="hash-output-box">
+              <input type="text" id="fileMd5" class="hash-text-val" readonly>
+              <button class="btn-copy copy-hash-btn" data-target="fileMd5">Copy</button>
+            </div>
+          </div>
+          <div class="hash-row">
+            <div class="hash-meta"><span class="hash-name">SHA-1 Checksum</span></div>
+            <div class="hash-output-box">
+              <input type="text" id="fileSha1" class="hash-text-val" readonly>
+              <button class="btn-copy copy-hash-btn" data-target="fileSha1">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: HMAC Calculator -->
+    <div id="tab-hmac" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h2 class="section-heading">HMAC (Hash-based Message Authentication Code)</h2>
+        <p class="section-sub">Generate cryptographically verified HMAC signatures using a secret key.</p>
+
+        <div class="hmac-form">
+          <div class="form-group">
+            <label for="hmacAlgorithm">Algorithm</label>
+            <select id="hmacAlgorithm" class="select-control">
+              <option value="SHA-256" selected>HMAC-SHA256</option>
+              <option value="SHA-512">HMAC-SHA512</option>
+              <option value="SHA-384">HMAC-SHA384</option>
+              <option value="SHA-1">HMAC-SHA1</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hmacSecret">Secret Key / Salt</label>
+            <input type="text" id="hmacSecret" class="text-input" placeholder="e.g. secret_api_key_12345">
+          </div>
+          <div class="form-group">
+            <label for="hmacMessage">Message Payload</label>
+            <textarea id="hmacMessage" class="code-textarea" rows="3" placeholder="Message content to authenticate..."></textarea>
+          </div>
+        </div>
+
+        <div class="hash-row" style="margin-top: 1rem;">
+          <div class="hash-meta">
+            <span class="hash-name">Calculated HMAC Signature (Hex)</span>
+          </div>
+          <div class="hash-output-box">
+            <input type="text" id="outHmacHex" class="hash-text-val" readonly placeholder="Resulting signature...">
+            <button class="btn-copy copy-hash-btn" data-target="outHmacHex">Copy Hex</button>
+          </div>
+        </div>
+
+        <div class="hash-row">
+          <div class="hash-meta">
+            <span class="hash-name">Calculated HMAC Signature (Base64)</span>
+          </div>
+          <div class="hash-output-box">
+            <input type="text" id="outHmacB64" class="hash-text-val" readonly placeholder="Resulting base64...">
+            <button class="btn-copy copy-hash-btn" data-target="outHmacB64">Copy Base64</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational & SEO Section -->
+    <section class="seo-content-section">
+      <article>
+        <h2>The Definitive Guide to UUIDs and Cryptographic Hashes</h2>
+        <p>
+          Universally Unique Identifiers (UUIDs) and Cryptographic Hash functions form the bedrock of data identification, distributed synchronization, and cryptographic integrity across the web.
+        </p>
+
+        <h3>UUID v4 vs UUID v7: Which Should You Use?</h3>
+        <p>
+          <strong>UUID version 4</strong> (RFC 4122) is generated completely randomly. With 122 bits of randomness, the probability of generating a duplicate UUID v4 is essentially zero (\(1 \text{ in } 2^{122}\)). 
+          However, because v4 UUIDs are completely randomized, inserting them as primary keys into relational databases (PostgreSQL, MySQL, SQL Server) leads to heavy <strong>B-tree index fragmentation</strong>, poor write caching, and sluggish query execution.
+        </p>
+        <p>
+          <strong>UUID version 7</strong> (RFC 9562) solves this by prefixing the identifier with a <strong>48-bit Unix timestamp in milliseconds</strong> followed by 74 bits of cryptographic entropy. 
+          UUID v7 values sort chronologically in natural alphabetical order, giving databases high-speed sequential insertions while retaining global uniqueness across distributed microservices.
+        </p>
+
+        <h3>Cryptographic Hash Comparison</h3>
+        <div class="table-responsive">
+          <table class="reference-table">
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Output Size</th>
+                <th>Security Status</th>
+                <th>Primary Use Cases</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>SHA-256</strong></td>
+                <td>256 bits (64 hex chars)</td>
+                <td>Cryptographically Secure</td>
+                <td>API authentication, blockchain, digital signatures, TLS certificates.</td>
+              </tr>
+              <tr>
+                <td><strong>SHA-512</strong></td>
+                <td>512 bits (128 hex chars)</td>
+                <td>Cryptographically Secure</td>
+                <td>High-security cryptographic operations, password hashing salts.</td>
+              </tr>
+              <tr>
+                <td><strong>MD5</strong></td>
+                <td>128 bits (32 hex chars)</td>
+                <td>Cryptographically Broken</td>
+                <td>File checksums, cache keys, non-adversarial deduplication.</td>
+              </tr>
+              <tr>
+                <td><strong>SHA-1</strong></td>
+                <td>160 bits (40 hex chars)</td>
+                <td>Deprecated / Collision Vulnerable</td>
+                <td>Git commit identification, legacy software compatibility.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container">
+          <details class="faq-item">
+            <summary class="faq-question">Are the generated UUIDs truly unique?</summary>
+            <div class="faq-answer">
+              <p>Yes. The randomness is generated using <code>crypto.getRandomValues()</code> and <code>crypto.randomUUID()</code>, backed by your operating system's CSPRNG (Cryptographically Secure Pseudorandom Number Generator). Generating collisions would require billions of machines generating billions of IDs per second for thousands of years.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">How does client-side file checksumming work?</summary>
+            <div class="faq-answer">
+              <p>Using the HTML5 File API and Web Crypto <code>crypto.subtle.digest</code>, your browser streams the file bytes directly through your local CPU. Not a single byte is ever sent to a server or third party.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">What is HMAC and why is it used?</summary>
+            <div class="faq-answer">
+              <p>HMAC (Hash-based Message Authentication Code) combines a cryptographic hash function with a secret shared key. It guarantees both data integrity and authentication, proving that a message was not tampered with in transit and came from someone with the secret key.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 <a href="https://github.com/bordia98" target="_blank" rel="noopener noreferrer">bordia98</a>. Built with privacy in mind &mdash; Free & Open Source under MIT License.</p>
+      <div class="footer-links">
+        <a href="https://github.com/bordia98/uuid-hash-generator" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <span>&bull;</span>
+        <a href="https://github.com/bordia98/url-encoder-decoder" target="_blank" rel="noopener noreferrer">URL Encoder & Decoder</a>
+        <span>&bull;</span>
+        <a href="https://github.com/bordia98/timestamp-converter" target="_blank" rel="noopener noreferrer">Timestamp Converter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
